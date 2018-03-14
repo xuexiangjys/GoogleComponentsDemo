@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="isLoading"
+            type="boolean" />
+
+        <variable
+            name="UserInfoList"
+            type="com.xuexiang.googlecomponentsdemo.viewmodel.UserInfoListViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/cardview_light_background"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="正在加载用户信息..."
+            android:textAlignment="center"
+            app:visibleGone="@{isLoading}"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/userinfos_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="LinearLayoutManager"
+            app:visibleGone="@{!isLoading}"/>
+
+    </LinearLayout>
+</layout>

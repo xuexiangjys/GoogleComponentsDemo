@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="LoginModel"
+            type="com.xuexiang.googlecomponentsdemo.viewmodel.LoginModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:singleLine="true"
+                android:text="登录名："
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/loginname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="请输入用户名"
+                android:text="@={LoginModel.loginName}"
+                android:inputType="textPersonName" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:singleLine="true"
+                android:text="密码："
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="请输入密码"
+                android:text="@={LoginModel.loginPassword}"
+                android:inputType="textPassword" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> LoginModel.login(LoginModel)}"
+                android:text="登陆" />
+
+            <Button
+                android:id="@+id/btn_register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:onClick="@{() -> LoginModel.register(LoginModel)}"
+                android:text="注册" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>

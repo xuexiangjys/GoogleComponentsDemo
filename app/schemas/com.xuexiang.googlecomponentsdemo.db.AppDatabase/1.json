@@ -1,0 +1,75 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "db7b9e6b16ca0bf625b75e34e5d30481",
+    "entities": [
+      {
+        "tableName": "_UserInfo",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`Id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `password` TEXT, `Alias` TEXT, `Age` INTEGER NOT NULL, `Gender` TEXT, `BirthDay` INTEGER, `Signature` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "Id",
+            "columnName": "Id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "LoginName",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "LoginPassword",
+            "columnName": "password",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "Alias",
+            "columnName": "Alias",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "Age",
+            "columnName": "Age",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "Gender",
+            "columnName": "Gender",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "BirthDay",
+            "columnName": "BirthDay",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "Signature",
+            "columnName": "Signature",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "Id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"db7b9e6b16ca0bf625b75e34e5d30481\")"
+    ]
+  }
+}
