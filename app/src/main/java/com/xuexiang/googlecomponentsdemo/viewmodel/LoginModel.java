@@ -93,7 +93,7 @@ public class LoginModel extends BaseObservable implements ILoginModel<ILoginView
      */
     @Override
     public void register(LoginModel loginModel) {
-        ToastUtil.showToast("点击登陆按钮，用户名：" + loginModel.getLoginName() + "，密码：" + loginModel.getLoginPassword());
+        ToastUtil.showToast("点击注册按钮，用户名：" + loginModel.getLoginName() + "，密码：" + loginModel.getLoginPassword());
     }
 
 }
