@@ -84,7 +84,7 @@ dependencies {
 
 ### 4.配置使用Room
 
-#### 1.使用注解配置数据库的实体类
+#### 1.使用@Entity注解配置数据库的实体类
 
 下面是用户信息数据库的实体配置：
 
@@ -134,6 +134,76 @@ public class UserInfoEntity {
 创建后生成的数据库表如下：
 
 ![](https://github.com/xuexiangjys/GoogleComponentsDemo/blob/master/img/db.png)
+
+
+#### 2.构建数据库操作Dao
+
+数据库操作Dao是一个加了@Dao注解修饰的接口，里面定义了数据库操作的方法，所有的数据库操作都是通过Sql语句实现的，查询出来的结果能够自动转化为实体对象或者LiveData对象。代码如下：
+
+```
+@Dao
+public interface UserInfoDao {
+
+    @Query("SELECT * FROM _UserInfo")
+    LiveData<List<UserInfoEntity>> loadAllUserInfos();
+
+    @Query("SELECT * FROM _UserInfo where name = :loginName and password = :loginPassword")
+    LiveData<UserInfoEntity> queryUserInfo(String loginName, String loginPassword);
+
+    /**
+     * 同步操作
+     *
+     * @param loginName
+     * @param loginPassword
+     * @return
+     */
+    @Query("SELECT * FROM _UserInfo where name = :loginName and password = :loginPassword")
+    List<UserInfoEntity> queryUserInfoSync(String loginName, String loginPassword);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertAll(List<UserInfoEntity> userInfos);
+}
+
+```
+
+需要注意的是，Room最好的特性之一是如果你在主线程中执行数据库操作，app将崩溃，显示下面的信息：
+
+```
+java.lang.IllegalStateException: Cannot access database on the main thread since it may potentially lock the UI for a long period of time.
+```
+
+#### 3.构建数据库
+
+继承RoomDatabase，并通过@Database注解进行数据库的信息配置，代码如下：
+
+```
+@Database(entities = {UserInfoEntity.class}, version = 1)
+@TypeConverters(DateConverter.class)
+public abstract class AppDatabase extends RoomDatabase {
+
+  //注册数据库操作Dao
+  public abstract UserInfoDao userInfoDao();
+}
+```
+
+细心的你可能会发现，上面的数据库实体的字段里居然出现了"Date"对象！是的，Room数据库组件支持复杂类型的存储。只需要给数据库提供一个类型转化类，通过注解@TypeConverters配置即可，@TypeConverter是注解的转化方法。下面是Date转化为时间戳的方法：
+
+```
+public class DateConverter {
+    @TypeConverter
+    public static Date toDate(Long timestamp) {
+        return timestamp == null ? null : new Date(timestamp);
+    }
+
+    @TypeConverter
+    public static Long toTimestamp(Date date) {
+        return date == null ? null : date.getTime();
+    }
+}
+
+```
+
+Room数据库的其他操作详解，可参见：http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2017/0726/8249.html
 
 
 
