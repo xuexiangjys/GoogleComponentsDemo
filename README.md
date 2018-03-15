@@ -13,6 +13,10 @@ Google Architecture Components 演示程序
 
    Google Architecture Components是Google在I/O大会上发布的一套应用框架库，它的使用基础是DataBinding和MVVM框架。详细介绍可参见：http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2017/1107/8715.html
 
+### 架构库的架构图
+
+![](https://github.com/xuexiangjys/GoogleComponentsDemo/blob/master/img/google_architecture_components.png)
+
 ### 架构库的基本组成
 
 - Lifecycle：Android声明周期的回调，帮助我们将原先需要在onStart()等生命周期回调的代码可以分离到Activity或者Fragment之外。
@@ -33,4 +37,103 @@ Google Architecture Components 演示程序
 - 各层之间的耦合推荐使用服务发现(Service Locator)或者依赖注入(DI)，推荐Dagger。
 
 ## 如何使用Google Architecture Components
+
+### 1.在Android Studio上使用，需要在module级别的build.gradle上添加对DataBinding的支持：
+
+```
+android {
+    ....
+    dataBinding {
+        enabled = true
+    }
+}
+```
+
+### 2.配置Room schemaLocation
+
+```
+android {
+    ....
+    defaultConfig {
+        ....
+        //指定room.schemaLocation生成的文件路径
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()
+                ]
+            }
+        }
+    }
+}
+```
+
+### 3.配置依赖dependencies
+
+```
+dependencies {
+    ....
+    // Architecture Components
+    implementation "android.arch.persistence.room:runtime:1.0.0-alpha1"
+    annotationProcessor "android.arch.persistence.room:compiler:1.0.0-alpha1"
+    implementation "android.arch.lifecycle:runtime:1.0.0-alpha1"
+    implementation "android.arch.lifecycle:extensions:1.0.0-alpha1"
+    annotationProcessor "android.arch.lifecycle:compiler:1.0.0-alpha1"
+}
+
+```
+
+### 4.配置使用Room
+
+#### 1.使用注解配置数据库的实体类
+
+下面是用户信息数据库的实体配置：
+
+```
+@Entity(tableName = "_UserInfo")
+public class UserInfoEntity {
+
+    @PrimaryKey(autoGenerate = true)
+    private int Id;
+    /**
+     * 登录名
+     */
+    @ColumnInfo(name = "name")
+    private String LoginName;
+    /**
+     * 登录密码
+     */
+    @ColumnInfo(name = "password")
+    private String LoginPassword;
+    /**
+     * 别名
+     */
+    private String Alias;
+    /**
+     * 年龄
+     */
+    private int Age;
+    /**
+     * 性别
+     */
+    private String Gender;
+    /**
+     * 出生日期
+     */
+    private Date BirthDay;
+
+    /**
+     * 签名
+     */
+    private String Signature = "这个家伙很懒，什么也没留下～～";
+
+    ....
+}
+
+```
+
+创建后生成的数据库表如下：
+
+![](https://github.com/xuexiangjys/GoogleComponentsDemo/blob/master/img/db.png)
+
+
 
