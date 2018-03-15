@@ -38,10 +38,10 @@ public class UserInfoListViewModel extends AndroidViewModel {
         // set by default null, until we get data from the database.
         mObservableUserInfos.setValue(null);
 
-        LiveData<List<UserInfoEntity>> products = ((DemoApp) application).getRepository().getUserInfos();
+        LiveData<List<UserInfoEntity>> userInfos = ((DemoApp) application).getRepository().getUserInfos();
 
-        // observe the changes of the products from the database and forward them
-        mObservableUserInfos.addSource(products, mObservableUserInfos::setValue);
+        // observe the changes of the userInfos from the database and forward them
+        mObservableUserInfos.addSource(userInfos, mObservableUserInfos::setValue);
     }
 
     /**

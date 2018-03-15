@@ -206,4 +206,71 @@ public class DateConverter {
 Room数据库的其他操作详解，可参见：http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2017/0726/8249.html
 
 
+### 5.将获取到的LiveData数据源填充到ViewModel中，并进行数据变化的绑定。
 
+LiveData 是一款基于观察者模式的可感知生命周期的核心组件。LiveData 为界面代码 （Observer）的监视对象 （Observable），当 LiveData 所持有的数据改变时，它会通知相应的界面代码进行更新。代码如下：
+
+```
+public UserInfoListViewModel(Application application) {
+    super(application);
+
+    mObservableUserInfos = new MediatorLiveData<>();
+    // set by default null, until we get data from the database.
+    mObservableUserInfos.setValue(null);
+
+    LiveData<List<UserInfoEntity>> userInfos = ((DemoApp) application).getRepository().getUserInfos();
+
+    // observe the changes of the userInfos from the database and forward them
+    mObservableUserInfos.addSource(userInfos, mObservableUserInfos::setValue);
+}
+
+```
+
+### 6.如同MVVM框架中，将ViewModel绑定到View中
+
+XML中注册ViewModel
+```
+<data>
+    <variable
+        name="UserInfoList"
+        type="com.xuexiang.googlecomponentsdemo.viewmodel.UserInfoListViewModel" />
+</data>
+```
+
+Activity/Fragment中设置绑定ViewModel
+```
+final UserInfoListViewModel viewModel = ViewModelProviders.of(this).get(UserInfoListViewModel.class);
+binding.setUserInfoList(viewModel);
+
+```
+
+### 7.将LiveData数据源与View的生命周期进行绑定
+
+这样LiveData数据源便能感知View的生命周期，并进行相应的处理。同时数据发生变化时，也能对View进行通知处理。
+
+```
+viewModel.getUserInfos().observe(this, new Observer<List<UserInfoEntity>>() {
+    @Override
+    public void onChanged(@Nullable List<UserInfoEntity> userInfoEntityList) {
+        if (userInfoEntityList != null) {
+            binding.setIsLoading(false);
+            mUserInfoAdapter.setUserInfoList(userInfoEntityList);
+        } else {
+            binding.setIsLoading(true);
+        }
+        // espresso does not know how to wait for data binding's loop so we execute changes
+        // sync.
+        binding.executePendingBindings();
+    }
+});
+
+```
+
+以上便简单地使用了Google Architecture Components，总体来说功能比较实用，而且如果结合RxJava、Retrofit、Dagger2和ARouter后，将会更加强大。
+
+
+## 更多框架演示
+
+- [MVP](https://github.com/xuexiangjys/MyMVP)
+- [MVVM](https://github.com/xuexiangjys/MyMVVM)
+- [Googel Architecture Components](https://github.com/xuexiangjys/GoogleComponentsDemo)

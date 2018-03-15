@@ -15,16 +15,16 @@ public class DataRepository {
     private static DataRepository sInstance;
 
     private final AppDatabase mDatabase;
-    private MediatorLiveData<List<UserInfoEntity>> mObservableProducts;
+    private MediatorLiveData<List<UserInfoEntity>> mObservableUserInfos;
 
     private DataRepository(final AppDatabase database) {
         mDatabase = database;
-        mObservableProducts = new MediatorLiveData<>();
+        mObservableUserInfos = new MediatorLiveData<>();
 
-        mObservableProducts.addSource(mDatabase.userInfoDao().loadAllUserInfos(),
+        mObservableUserInfos.addSource(mDatabase.userInfoDao().loadAllUserInfos(),
                 userInfoEntities -> {
                     if (mDatabase.getDatabaseCreated().getValue() != null) {
-                        mObservableProducts.postValue(userInfoEntities);
+                        mObservableUserInfos.postValue(userInfoEntities);
                     }
                 });
     }
@@ -44,7 +44,7 @@ public class DataRepository {
      * Get the list of products from the database and get notified when the data changes.
      */
     public LiveData<List<UserInfoEntity>> getUserInfos() {
-        return mObservableProducts;
+        return mObservableUserInfos;
     }
 
     public LiveData<UserInfoEntity> queryUserInfo(final String loginName, final String loginPassword) {
