@@ -268,10 +268,10 @@ viewModel.getUserInfos().observe(this, new Observer<List<UserInfoEntity>>() {
 
 以上便简单地使用了Google Architecture Components，总体来说功能比较实用，而且如果结合RxJava、Retrofit、Dagger2和ARouter后，将会更加强大。
 
-需要了解更多有关Google Architecture Components内容的，[请点击查看](https://github.com/googlesamples/android-architecture-components) 
+需要了解更多有关Google Architecture Components内容的，[请点击查看](https://github.com/googlesamples/android-architecture-components)
 
 ## 更多框架演示
 
 - [MVP](https://github.com/xuexiangjys/MyMVP)
 - [MVVM](https://github.com/xuexiangjys/MyMVVM)
-- [Googel Architecture Components](https://github.com/xuexiangjys/GoogleComponentsDemo)
+- [Google Architecture Components](https://github.com/xuexiangjys/GoogleComponentsDemo)
