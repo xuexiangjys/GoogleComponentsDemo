@@ -14,6 +14,7 @@ import com.xuexiang.googlecomponentsdemo.model.OnItemClickListener;
 import com.xuexiang.googlecomponentsdemo.util.ToastUtil;
 import com.xuexiang.googlecomponentsdemo.view.adapter.UserInfoAdapter;
 import com.xuexiang.googlecomponentsdemo.viewmodel.UserInfoListViewModel;
+import com.xuexiang.googlecomponentsdemo.viewmodel.lifecycle.TestLifecycle;
 
 import java.util.List;
 
@@ -45,6 +46,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements O
         binding.setUserInfoList(viewModel);
 
         mUserInfoAdapter = new UserInfoAdapter(this);
+
+        getLifecycle().addObserver(new TestLifecycle<>(mUserInfoAdapter)); //演示Lifecycle的使用
+
         binding.userinfosList.setAdapter(mUserInfoAdapter);
 
         viewModel.getUserInfos().observe(this, new Observer<List<UserInfoEntity>>() {
