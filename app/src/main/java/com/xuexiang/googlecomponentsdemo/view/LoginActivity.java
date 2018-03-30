@@ -4,6 +4,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.xuexiang.googlecomponentsdemo.R;
 import com.xuexiang.googlecomponentsdemo.base.BaseActivity;
 import com.xuexiang.googlecomponentsdemo.databinding.ActivityLoginBinding;
+import com.xuexiang.googlecomponentsdemo.util.GodEyeUtils;
 import com.xuexiang.googlecomponentsdemo.viewmodel.LoginModel;
 
 @Route(path = "/ui/login")
@@ -24,6 +25,7 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> implements
      */
     @Override
     protected void bindViews() {
+        GodEyeUtils.start(this);
         binding.setLoginModel(new LoginModel().attachV(this));
     }
 
