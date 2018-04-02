@@ -75,12 +75,13 @@ android {
 
 注意点：
 
+- 如果命令执行提示-bash: ./gradlew: Permission denied，使用命令 chmod +x gradlew 解决
+
 - 如果你的下载的时候速度很慢，你也可以加上参数，执行gradlew initFreeline -Pmirror，这样就会从国内镜像地址来下载。
 
 - 你也可以使用参数`-PfreelineVersion={your-specific-version}`来下载特定版本的 freeline 依赖。
 
 - 如果你的工程结构较为复杂，在第一次使用 freeline 编译的时候报错了的话，你可以添加一些 freeline 提供的配置项，来适配你的工程。具体可以看 [Freeline DSL References](https://github.com/alibaba/freeline/wiki/Freeline-DSL-References)。
-
 
 完成如上操作后，你的项目中会增加如下内容：
 
