@@ -69,7 +69,7 @@ public class LoginModel extends BaseObservable implements ILoginModel<ILoginView
      * @param loginModel
      */
     @Override
-    public void login(LoginModel loginModel) {
+    public void login(final LoginModel loginModel) {
         DemoApp.getAppExecutors().diskIO().execute(new Runnable() {  //数据库的操作必须放在子线程中
             @Override
             public void run() {
@@ -80,7 +80,7 @@ public class LoginModel extends BaseObservable implements ILoginModel<ILoginView
                         mILoginView.onFinished();
                     }
                 } else {
-                    ToastUtil.showToast("用户名或者密码错误！");
+                    ToastUtil.showToast("用户名或者密码错误!");
                 }
             }
         });
