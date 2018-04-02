@@ -3,6 +3,8 @@ Google Architecture Components 演示程序
 
 在MVVM框架基础上简单使用了Room、LiveData、ViewModel框架组件。
 
+本项目使用freeline加速编译，[点击查看使用指南。](https://github.com/xuexiangjys/GoogleComponentsDemo/blob/master/Freeline_README.md)
+
 ## 关于我
 [![github](https://img.shields.io/badge/GitHub-xuexiangjys-blue.svg)](https://github.com/xuexiangjys)   [![csdn](https://img.shields.io/badge/CSDN-xuexiangjys-green.svg)](http://blog.csdn.net/xuexiangjys)
 

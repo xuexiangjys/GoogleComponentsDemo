@@ -129,7 +129,7 @@ python freeline.py -i | 初始化 对工程进行进行freeline初始化配置
 
 ## 速度测试
 
-为了测试freeline加速的效果，我使用[本项目](https://github.com/xuexiangjys)进行测试
+为了测试freeline加速的效果，我使用[本项目](https://github.com/xuexiangjys/GoogleComponentsDemo)进行测试
 
 测试内容：
 
