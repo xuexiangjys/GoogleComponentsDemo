@@ -160,3 +160,15 @@ python freeline.py -i | 初始化 对工程进行进行freeline初始化配置
 ![](https://github.com/xuexiangjys/GoogleComponentsDemo/blob/master/img/freeline/freeline_second.png)
 
 由上可以看到，freeline第一次进行全量编译所需要的时间要远大于Instant Run，但是在后面修改代码后进行增量编译时，freeline明显要快好多。
+
+## 常见问题
+
+1.问：使用python freeline.py -d无法进行debug断点调试？
+答：“python freeline.py -d" 中的-d 不是我想象中的进行debug，而是输出freeline的log参数；如果想进行debug，要结合android studio的attach debugger 按钮。
+
+2.问：资源文件(res下)修改后，编译闪退问题。
+答：闪退现象是：单单资源文件修改会闪退，资源文件+java文件修改正常。
+github上的回复是：这个现象不是闪退，而是我的activity在重建的时候调用了两次finish，把重建的activity的关掉了。
+暂时解决方案是：如果单单修改资源文件，那么找个java文件 打个空格保存一下，这样也不是特别麻烦，可以接受，先这样用着吧。
+
+其实，在修改个别资源文件，进行增量编译时，可能会导致程序崩溃。因此，我建议如果你修改了资源文件，还是不要使用freeline的增量编译。
