@@ -75,7 +75,7 @@ android {
 
 注意点：
 
-- 如果命令执行提示-bash: ./gradlew: Permission denied，使用命令 <code>chmod +x gradlew</code> 解决
+- 如果命令执行提示-bash: ./gradlew: Permission denied，使用命令`chmod +x gradlew` 解决
 
 - 如果你的下载的时候速度很慢，你也可以加上参数，执行gradlew initFreeline -Pmirror，这样就会从国内镜像地址来下载。
 
